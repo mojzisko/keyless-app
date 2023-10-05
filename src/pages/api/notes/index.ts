@@ -3,13 +3,20 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
+interface Note {
+  id: number;
+  title: string;
+  text: string;
+  updatedAt: Date;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
     const notes = await prisma.note.findMany();
-    const serializedNotes = notes.map((note) => ({
+    const serializedNotes = notes.map((note: Note) => ({
       ...note,
       updatedAt: note.updatedAt.toISOString(),
     }));

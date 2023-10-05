@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface Note {
-  id: string;
+  id: number;
   title: string;
   text: string;
 }
@@ -10,8 +10,8 @@ interface Note {
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (title: string, text: string, id?: string) => void;
-  note?: Note;
+  onSubmit: (title: string, text: string, id?: number) => void;
+  note?: Note | null;
 }
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, note }) => {

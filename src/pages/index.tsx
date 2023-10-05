@@ -7,10 +7,10 @@ import dayjs from 'dayjs';
 import { FaPencilAlt, FaTimes } from 'react-icons/fa';
 
 interface Note {
-  id: string;
+  id: number;
   title: string;
   text: string;
-  updatedAt: string;
+  updatedAt: Date;
 }
 
 interface HomeProps {
@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   // Convert Date objects to strings
   const serializedNotes = notesProp.map(note => ({
     ...note,
-    updatedAt: note.updatedAt.toISOString(),
+    updatedAt: new Date(note.updatedAt).toISOString(),
   }));
 
   return {
@@ -104,7 +104,7 @@ export default function Home({ notesProp }: HomeProps) {
     setIsModalOpen(true);
   };
 
-  const handleDeleteNote = async (id) => {
+  const handleDeleteNote = async (id: any) => {
     try {
       const response = await fetch(`/api/notes/delete/${id}`);
   
@@ -113,7 +113,7 @@ export default function Home({ notesProp }: HomeProps) {
       }
   
       // Remove the note from local state so the UI updates immediately
-      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+      setNotes((prevNotes: any) => prevNotes.filter((note: Note) => note.id !== id));
     } catch (error) {
       console.error('Error deleting note:', error);
     }
