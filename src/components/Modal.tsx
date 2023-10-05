@@ -18,7 +18,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, note })
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [animationClass, setAnimationClass] = useState('scale-0');
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
