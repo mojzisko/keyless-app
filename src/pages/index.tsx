@@ -42,6 +42,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   // Convert Date objects to strings
   const serializedNotes = notesProp.map(note => ({
     ...note,
+    id: Number(note.id),
     updatedAt: new Date(note.updatedAt).toISOString(),
   }));
 
