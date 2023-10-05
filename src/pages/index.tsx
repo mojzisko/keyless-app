@@ -42,8 +42,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   // Convert Date objects to strings
   const serializedNotes = notesProp.map(note => ({
     ...note,
-    id: Number(note.id),
-    updatedAt: new Date(note.updatedAt).toISOString(),
+    id: note.id,
+    updatedAt: note.updatedAt.toISOString(),
   }));
 
   return {
@@ -105,7 +105,7 @@ export default function Home({ notesProp }: HomeProps) {
     setIsModalOpen(true);
   };
 
-  const handleDeleteNote = async (id: any) => {
+  const handleDeleteNote = async (id: number) => {
     try {
       const response = await fetch(`/api/notes/delete/${id}`);
   
