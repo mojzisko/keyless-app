@@ -10,7 +10,7 @@ interface Note {
   id: number;
   title: string;
   text: string;
-  updatedAt: Date;
+  updatedAt: Date | string;
 }
 
 interface HomeProps {
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const serializedNotes = notesProp.map(note => ({
     ...note,
     id: note.id,
-    updatedAt: note.updatedAt.toISOString(),
+    updatedAt: new Date(note.updatedAt).toISOString(),
   }));
 
   return {

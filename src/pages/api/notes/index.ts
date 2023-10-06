@@ -7,7 +7,7 @@ interface Note {
   id: number;
   title: string;
   text: string;
-  updatedAt: Date;
+  updatedAt: Date | string;
 }
 
 export default async function handler(
@@ -18,7 +18,7 @@ export default async function handler(
     const notes = await prisma.note.findMany();
     const serializedNotes = notes.map((note: Note) => ({
       ...note,
-      updatedAt: note.updatedAt.toISOString(),
+      updatedAt: new Date(note.updatedAt).toISOString(),
     }));
     res.status(200).json(serializedNotes);
   } catch (error) {
